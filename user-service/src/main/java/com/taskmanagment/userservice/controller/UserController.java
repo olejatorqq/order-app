@@ -1,7 +1,9 @@
-package com.taskmanagment.userservice;
+package com.taskmanagment.userservice.controller;
 
-import com.example.userservice.model.User;
-import com.example.userservice.service.UserService;
+import com.taskmanagment.userservice.dto.UserDTO;
+import com.taskmanagment.userservice.dto.UserResponseDTO;
+import com.taskmanagment.userservice.model.User;
+import com.taskmanagment.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +16,28 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User createdUser = userService.registerUser(user);
-        return ResponseEntity.ok(createdUser);
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
+        User createdUser = userService.registerUser(userDTO);
+        UserResponseDTO responseDTO = UserResponseDTO.builder()
+                .id(createdUser.getId())
+                .username(createdUser.getUsername())
+                .email(createdUser.getEmail())
+                .createdAt(createdUser.getCreatedAt())
+                .build();
+        return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
         User user = userService.getUser(id);
         if(user != null) {
-            return ResponseEntity.ok(user);
+            UserResponseDTO responseDTO = UserResponseDTO.builder()
+                    .id(user.getId())
+                    .username(user.getUsername())
+                    .email(user.getEmail())
+                    .createdAt(user.getCreatedAt())
+                    .build();
+            return ResponseEntity.ok(responseDTO);
         } else {
             return ResponseEntity.notFound().build();
         }

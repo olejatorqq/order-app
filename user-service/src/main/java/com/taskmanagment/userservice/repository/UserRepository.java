@@ -1,6 +1,6 @@
-package com.taskmanagment.userservice;
+package com.taskmanagment.userservice.repository;
 
-import com.example.userservice.model.User;
+import com.taskmanagment.userservice.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
