@@ -4,7 +4,6 @@ import com.taskmanagment.notificationservice.dto.NotificationDTO;
 import com.taskmanagment.notificationservice.dto.NotificationResponseDTO;
 import com.taskmanagment.notificationservice.exception.ResourceNotFoundException;
 import com.taskmanagment.notificationservice.model.Notification;
-import com.taskmanagment.notificationservice.repository.NotificationRepository;
 import com.taskmanagment.notificationservice.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +19,9 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
+    /**
+     * Получение всех уведомлений.
+     */
     @GetMapping
     public ResponseEntity<List<NotificationResponseDTO>> getAllNotifications() {
         List<Notification> notifications = notificationService.getAllNotifications();
@@ -35,6 +37,9 @@ public class NotificationController {
         return ResponseEntity.ok(responseDTOs);
     }
 
+    /**
+     * Получение уведомления по ID.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<NotificationResponseDTO> getNotificationById(@PathVariable Long id) {
         Notification notification = notificationService.getNotificationById(id)
