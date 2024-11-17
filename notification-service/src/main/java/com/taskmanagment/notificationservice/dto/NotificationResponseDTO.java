@@ -1,20 +1,14 @@
-package com.taskmanagment.notificationservice.model;
+package com.taskmanagment.notificationservice.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "notifications")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Notification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class NotificationResponseDTO {
     private Long id;
-
     private Long orderId;
     private Long userId;
     private String message;
